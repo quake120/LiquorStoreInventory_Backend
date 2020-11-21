@@ -12,8 +12,12 @@ const db = firebase.firestore();
 const getAllInventory = async () => {
   let data = [];
   const inventoryRef = db.collection("inventory");
-  let inventoryData = await inventoryRef.get();
+  let inventoryData = await inventoryRef
+    .limit(500)
+    .get();
+  
   inventoryData.forEach((doc) => {
+    console.log(doc.data());
     data.push(doc.data());
   });
 
